@@ -383,8 +383,8 @@ namespace QuantConnect.Securities
             // determine the unit price in terms of the account currency
             var utcTime = parameters.Security.LocalTime.ConvertToUtc(parameters.Security.Exchange.TimeZone);
 
-            // determine the margin required for 1 unit
-            var absUnitMargin = this.GetInitialMarginRequirement(parameters.Security, 1);
+            // determine the margin required for the minimum lot size
+            var absUnitMargin = this.GetInitialMarginRequirement(parameters.Security, parameters.Security.SymbolProperties.LotSize);
             if (absUnitMargin == 0)
             {
                 return new GetMaximumOrderQuantityResult(0, parameters.Security.Symbol.GetZeroPriceMessage());
